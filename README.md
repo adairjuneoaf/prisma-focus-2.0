@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="prisma-focus-2.0" src=".github/logo.svg" width="144px">
+  <img alt="prisma-focus-2.0" src=".github/logo.svg" width="192px">
 </p>
 
 <h1 align="center">
@@ -30,3 +30,7 @@ Para auxiliar no desenvolvimento do projeto, utilizei as seguinte bibliotecas:
 - [Firebase](https://firebase.google.com)
 - [ReactToastify](https://fkhadra.github.io/react-toastify/introduction)
 - [StyledComponents](https://styled-components.com)
+
+---
+
+Layout desenvolvido por [Tiago Luchtenberg](https://www.instagram.com/tiagoluchtenberg/) by Rocketseat ♥
