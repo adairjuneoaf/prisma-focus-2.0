@@ -4,21 +4,25 @@ export const Container = styled.div`
   width: 100vw;
   height: 100vh;
 
+  overflow: hidden;
+
+  background-image: url('/svg/background_image.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
+
   justify-content: center;
-  align-items: center;
+`
 
-  gap: 1rem;
+export const Content = styled.section`
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
 
-  img {
-    width: 80px;
-    height: auto;
-  }
-
-  h1 {
-    span {
-      color: ${props => props.theme.colors.secondary};
-    }
-  }
+  gap: 10rem;
 `
