@@ -43,8 +43,19 @@ export const Content = styled.section`
 
       transition: border-color 0.3s;
 
+      svg{
+        path{
+          transition: stroke 0.3s;
+        }
+      }
+
       &:hover {
         border-color: ${props => props.theme.colors.tertiary};
+
+        svg{
+          path{
+            stroke: ${props => props.theme.colors.tertiary};
+        }
       }
     }
   }

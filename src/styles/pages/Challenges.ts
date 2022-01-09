@@ -19,7 +19,7 @@ export const Content = styled.div`
 
   .profileCountdownAndChallenges {
     width: 80vw;
-    height: 95vh;
+    height: 90vh;
 
     margin: 0 auto;
 
@@ -35,6 +35,7 @@ export const Content = styled.div`
 
       display: flex;
       flex-direction: column;
+      align-items: flex-start;
       justify-content: space-between;
 
       gap: 8rem;
@@ -45,6 +46,7 @@ export const Content = styled.div`
 
       display: flex;
       flex-direction: column;
+      align-items: flex-end;
       justify-content: space-between;
     }
   }

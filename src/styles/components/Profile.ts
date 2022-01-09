@@ -21,8 +21,10 @@ export const Content = styled.div`
 
     gap: 1.5rem;
 
+    cursor: default;
+
     > img {
-      width: 64px;
+      width: 80px;
       clip-path: circle();
     }
 
@@ -65,6 +67,8 @@ export const Content = styled.div`
     justify-content: space-between;
 
     border-bottom: 3px solid #dcdde0;
+
+    cursor: default;
 
     h4 {
       font-size: 1.25rem;

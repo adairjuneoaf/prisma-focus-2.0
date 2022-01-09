@@ -29,11 +29,13 @@ export const Content = styled.section`
 
     .currentProgressBarExperience {
       height: 8px;
-      width: 50%;
 
       background: #4cd62b;
 
       border-radius: 0.375rem 0 0 0.375rem;
+
+      transition: width 3s;
+      transition-timing-function: 4s cubic-bezier(0, 0.7, 0.5, 1);
     }
   }
 

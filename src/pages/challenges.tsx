@@ -1,6 +1,8 @@
 import React from 'react'
-import Countdown from '../components/Countdown'
+import ChallengesBox from '../components/ChallengesBox'
 
+import Countdown from '../components/Countdown'
+import LevelUpgradeModal from '../components/LevelUpgradeModal'
 import MenuSideBar from '../components/MenuSideBar'
 import Profile from '../components/Profile'
 import ProgressExperience from '../components/ProgressExperience'
@@ -10,6 +12,7 @@ import { Container, Content } from '../styles/pages/Challenges'
 const Challenges: React.FC = () => {
   return (
     <Container>
+      <LevelUpgradeModal />
       <MenuSideBar />
       <Content>
         <ProgressExperience />
@@ -21,7 +24,7 @@ const Challenges: React.FC = () => {
           </div>
 
           <div className="challengesBox">
-            <h1>Challenges</h1>
+            <ChallengesBox />
           </div>
         </div>
       </Content>
