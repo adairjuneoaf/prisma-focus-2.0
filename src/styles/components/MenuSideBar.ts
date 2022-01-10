@@ -23,6 +23,8 @@ export const Content = styled.section`
   }
 
   .buttonsMenu {
+    width: 100%;
+
     flex: 1;
 
     display: flex;
@@ -37,11 +39,10 @@ export const Content = styled.section`
       align-items: center;
       justify-content: center;
 
-      height: 64px;
-      padding: 0 65%;
-      border-left: 3px solid transparent;
+      position: relative;
 
-      transition: border-color 0.3s;
+      height: 64px;
+      width: 100%;
 
       svg{
         path{
@@ -50,12 +51,34 @@ export const Content = styled.section`
       }
 
       &:hover {
-        border-color: ${props => props.theme.colors.tertiary};
+        .borderMarkdownLeft{
+          background: ${props => props.theme.colors.tertiary};
+      }
+    }
 
-        svg{
-          path{
-            stroke: ${props => props.theme.colors.tertiary};
-        }
+    .borderMarkdownLeft{
+      position: absolute;
+      left: 0;
+
+      height: 120%;
+      width: 5px;
+
+      border-radius: 0 5px 5px 0;
+
+      background: transparent;
+
+      transition: background-color 0.3s;
+    }
+  }
+
+  .routeActive{
+    .borderMarkdownLeft{
+      background: ${props => props.theme.colors.tertiary};
+    }
+
+    svg{
+      path{
+        stroke: ${props => props.theme.colors.tertiary};
       }
     }
   }
