@@ -4,7 +4,7 @@ export const Content = styled.section`
   width: 5rem;
   height: 100vh;
 
-  position: absolute;
+  position: fixed;
 
   top: 0;
   left: 0;

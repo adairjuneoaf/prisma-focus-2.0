@@ -34,7 +34,7 @@ const MenuSideBar: React.FC = () => {
             </g>
           </svg>
         </a>
-        <a href="/challenges" title="Ir a página de ranking dos usuários.">
+        <a href="/leaderboard" title="Ir a página de ranking dos usuários.">
           <svg
             width="32"
             height="32"

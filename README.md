@@ -27,6 +27,7 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 Para auxiliar no desenvolvimento do projeto, utilizei as seguinte bibliotecas:
 
 - [SWR](https://swr.vercel.app)
+- [Framer](https://www.framer.com/docs/)
 - [Firebase](https://firebase.google.com)
 - [ReactToastify](https://fkhadra.github.io/react-toastify/introduction)
 - [StyledComponents](https://styled-components.com)

@@ -23,11 +23,6 @@ const Profile: React.FC = () => {
           </span>
         </div>
       </div>
-
-      <div className="challengesCompleted">
-        <h4>Desafios completados</h4>
-        <h4>00</h4>
-      </div>
     </Content>
   )
 }

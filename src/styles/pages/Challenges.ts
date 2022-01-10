@@ -38,7 +38,7 @@ export const Content = styled.div`
       align-items: flex-start;
       justify-content: space-between;
 
-      gap: 8rem;
+      gap: 4rem;
     }
 
     .challengesBox {
