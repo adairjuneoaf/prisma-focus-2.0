@@ -12,10 +12,10 @@ const ChallengesBox: React.FC = () => {
     useContext(CountdownContext)
 
   const {
-    ChallengeSelectedForUser,
-    ExperienceCurrentUpAndLevelUserUp,
+    ChallengesUpUser,
     ResetChallengeFailed,
-    ChallengesUpUser
+    ChallengeSelectedForUser,
+    ExperienceCurrentUpAndLevelUserUp
   } = useContext(ChallengesContext)
 
   function SuccessCompletedChallenge() {
@@ -25,8 +25,8 @@ const ChallengesBox: React.FC = () => {
   }
 
   function FailedCompletedChallenge() {
-    ResetChallengeFailed()
     ResetCountdown()
+    ResetChallengeFailed()
   }
 
   return (

@@ -3,13 +3,13 @@ import Head from 'next/head'
 
 import { motion, AnimatePresence } from 'framer-motion'
 
-import ChallengesBox from '../components/ChallengesBox'
-import ChallengesCompletedUser from '../components/ChallengesCompletedUser'
-import Countdown from '../components/Countdown'
-import LevelUpgradeModal from '../components/LevelUpgradeModal'
-import MenuSideBar from '../components/MenuSideBar'
 import Profile from '../components/Profile'
+import Countdown from '../components/Countdown'
+import MenuSideBar from '../components/MenuSideBar'
+import ChallengesBox from '../components/ChallengesBox'
+import LevelUpgradeModal from '../components/LevelUpgradeModal'
 import ProgressExperience from '../components/ProgressExperience'
+import ChallengesCompletedUser from '../components/ChallengesCompletedUser'
 
 import { Container, Content } from '../styles/pages/Challenges'
 

@@ -8,22 +8,22 @@ interface ChallengesContextProvider {
 
 interface Challenge {
   type: 'body' | 'eye'
-  description: string
   amount: number
+  description: string
 }
 
 interface ChallengesContextProviderProps {
-  ChallengeSelectedForUser: Challenge
-  selectNewChallenge: () => void
   LevelCurrent: number
-  ExperienceCurrent: number
-  CalcExperienceToNextLevel: number
-  OpenOrCloseLevelUpModal: boolean
-  CloseLevelUpModal: () => void
-  ExperienceCurrentUpAndLevelUserUp: () => void
-  ResetChallengeFailed: () => void
-  ChallengesCompletedUser: number
   ChallengesUpUser: () => void
+  ExperienceCurrent: number
+  CloseLevelUpModal: () => void
+  selectNewChallenge: () => void
+  ResetChallengeFailed: () => void
+  OpenOrCloseLevelUpModal: boolean
+  ChallengesCompletedUser: number
+  ChallengeSelectedForUser: Challenge
+  CalcExperienceToNextLevel: number
+  ExperienceCurrentUpAndLevelUserUp: () => void
 }
 
 export const ChallengesContext = createContext(
@@ -89,17 +89,17 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   return (
     <ChallengesContext.Provider
       value={{
-        ChallengeSelectedForUser,
-        selectNewChallenge,
         LevelCurrent,
-        ExperienceCurrent,
-        CalcExperienceToNextLevel,
-        OpenOrCloseLevelUpModal,
+        ChallengesUpUser,
         CloseLevelUpModal,
-        ExperienceCurrentUpAndLevelUserUp,
+        ExperienceCurrent,
+        selectNewChallenge,
         ResetChallengeFailed,
         ChallengesCompletedUser,
-        ChallengesUpUser
+        OpenOrCloseLevelUpModal,
+        ChallengeSelectedForUser,
+        CalcExperienceToNextLevel,
+        ExperienceCurrentUpAndLevelUserUp
       }}
     >
       {children}

@@ -1,9 +1,9 @@
 import React, {
-  createContext,
+  useState,
   ReactNode,
-  useContext,
   useEffect,
-  useState
+  useContext,
+  createContext
 } from 'react'
 
 import { ChallengesContext } from './ChallengesContext'
@@ -17,9 +17,9 @@ interface CountdownContextProps {
   minutes: number
   seconds: number
   ActiveCountdown: boolean
-  handleActiveCountdown: () => void
-  HasFinishedCountdown: boolean
   ResetCountdown: () => void
+  HasFinishedCountdown: boolean
+  handleActiveCountdown: () => void
 }
 
 let CountdownTimeout: any //VARIAVEL PARA SETAR UM DELAY DE INICIO E PARADA DO COUNTDOWN EM TELA
@@ -49,17 +49,17 @@ const CountdownContextProvider: React.FC<CountdownContextProviderProps> = ({
         setTimer(Timer - 1)
       }, 1000)
     } else if (ActiveCountdown && Timer === 0) {
-      setHasFinishedCountdown(true)
-      setActiveCountdown(false)
       selectNewChallenge()
+      setActiveCountdown(false)
+      setHasFinishedCountdown(true)
     }
   }, [ActiveCountdown, Timer])
 
   function ResetCountdown() {
-    clearTimeout(CountdownTimeout)
-    setHasFinishedCountdown(false)
-    setActiveCountdown(false)
     setTimer(0.2 * 60)
+    setActiveCountdown(false)
+    setHasFinishedCountdown(false)
+    clearTimeout(CountdownTimeout)
   }
 
   return (
@@ -68,10 +68,10 @@ const CountdownContextProvider: React.FC<CountdownContextProviderProps> = ({
         Timer,
         minutes,
         seconds,
+        ResetCountdown,
         ActiveCountdown,
-        handleActiveCountdown,
         HasFinishedCountdown,
-        ResetCountdown
+        handleActiveCountdown
       }}
     >
       {children}
