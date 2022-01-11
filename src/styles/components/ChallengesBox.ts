@@ -15,7 +15,7 @@ export const Content = styled.section`
 
   .defaultChallengeBox {
     height: 90%;
-    width: 90%;
+    padding: 2rem;
 
     display: flex;
     flex-direction: column;
@@ -67,7 +67,7 @@ export const Content = styled.section`
 
   .initiatedCycleChallenge {
     height: 90%;
-    width: 90%;
+    padding: 2rem;
 
     display: flex;
     flex-direction: column;
@@ -77,8 +77,6 @@ export const Content = styled.section`
     gap: 8rem;
 
     h2 {
-      max-width: 80%;
-
       text-align: center;
       line-height: 1.5;
 
@@ -94,18 +92,17 @@ export const Content = styled.section`
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
 
       gap: 2rem;
 
       img {
         width: 64px;
-
         cursor: default;
       }
 
       p {
-        text-align: left;
+        text-align: justify;
 
         line-height: 1.5;
 
@@ -119,7 +116,8 @@ export const Content = styled.section`
 
   .currentChallenge {
     height: 90%;
-    width: 90%;
+
+    padding: 2rem;
 
     display: flex;
     flex-direction: column;
@@ -183,6 +181,7 @@ export const Content = styled.section`
       }
     }
   }
+
   .buttonsChallenge {
     display: flex;
     flex-direction: row;

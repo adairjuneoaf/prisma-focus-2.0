@@ -1,30 +1,33 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { AnimatePresence, motion } from 'framer-motion'
 import Modal from 'react-modal'
 
+import { ChallengesContext } from '../contexts/ChallengesContext'
+
 import { Content } from '../styles/components/LevelUpgradeModal'
 
 const LevelUpgradeModal: React.FC = () => {
-  function handleCloseModal() {}
+  const { LevelCurrent, CloseLevelUpModal, OpenOrCloseLevelUpModal } =
+    useContext(ChallengesContext)
 
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ x: -100, opacity: 0 }}
+        initial={{ y: -60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        exit={{ x: 100, opacity: 0 }}
+        exit={{ y: 60, opacity: 0 }}
         transition={{ duration: 0.3 }}
       >
         <Modal
-          isOpen={false}
+          isOpen={OpenOrCloseLevelUpModal}
           overlayClassName="react-modal-overlay"
           className="react-modal-content"
         >
           <button
             type="button"
-            onClick={handleCloseModal}
             className="react-modal-close"
+            onClick={CloseLevelUpModal}
           >
             <svg
               width="14"
@@ -42,7 +45,7 @@ const LevelUpgradeModal: React.FC = () => {
 
           <Content>
             <div className="levelUploaded">
-              <h2>2</h2>
+              <h2>{LevelCurrent}</h2>
             </div>
             <div className="congratulationsLevelUploaded">
               <h3>Parabéns</h3>

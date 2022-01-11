@@ -22,6 +22,7 @@ const Challenges: React.FC = () => {
       </Head>
       <AnimatePresence>
         <LevelUpgradeModal />
+
         <MenuSideBar />
 
         <motion.div

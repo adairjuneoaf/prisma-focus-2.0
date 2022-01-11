@@ -6,8 +6,6 @@ import { Content } from '../styles/components/MenuSideBar'
 const MenuSideBar: React.FC = () => {
   const router = useRouter()
 
-  console.log(router.route)
-
   return (
     <Content>
       <img src="/svg/icon.svg" alt="Icone do app prisma.focus." />

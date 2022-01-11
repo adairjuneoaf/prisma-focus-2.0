@@ -203,7 +203,7 @@ export const Content = styled.section`
           background-color: #4cd62b;
           border-radius: 0 5px 5px 5px;
 
-          transition: 1s ease;
+          transition: 2s;
           transition-delay: 0.5s;
         }
       }

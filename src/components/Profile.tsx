@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
+
+import { ChallengesContext } from '../contexts/ChallengesContext'
 
 import { Content } from '../styles/components/Profile'
 
 const Profile: React.FC = () => {
+  const { LevelCurrent } = useContext(ChallengesContext)
+
   return (
     <Content>
       <div className="profileUser">
@@ -19,7 +23,7 @@ const Profile: React.FC = () => {
               src="/svg/up_level.svg"
               alt="Icone que indica o level do usuário na plataforma."
             />
-            <p>Level 1</p>
+            <p>Level {LevelCurrent}</p>
           </span>
         </div>
       </div>
