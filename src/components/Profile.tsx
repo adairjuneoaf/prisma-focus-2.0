@@ -20,9 +20,7 @@ const Profile: React.FC = () => {
         />
 
         <div className="infosProfile">
-          <h2>
-            {UserConected?.name} - {UserConected?.username}
-          </h2>
+          <h2>{UserConected?.name}</h2>
 
           <span className="levelUser">
             <img
