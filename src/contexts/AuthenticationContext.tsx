@@ -11,7 +11,7 @@ type User = {
   id: string
   name: string
   avatar: string
-  username: string
+  email: string
 }
 
 type AuthenticationContextProps = {
@@ -39,13 +39,11 @@ const AuthenticationContextProvider: React.FC<
           )
         }
 
-        const TransformEmailForUsername = email.split('@')[0]
-
         setUserConected({
           id: uid,
           name: displayName,
           avatar: photoURL,
-          username: TransformEmailForUsername
+          email: email
         })
       }
       return () => {
@@ -70,13 +68,11 @@ const AuthenticationContextProvider: React.FC<
         return
       }
 
-      const TransformEmailForUsername = email.split('@')[0]
-
       setUserConected({
         id: uid,
         name: displayName,
         avatar: photoURL,
-        username: TransformEmailForUsername
+        email: email
       })
     }
   }

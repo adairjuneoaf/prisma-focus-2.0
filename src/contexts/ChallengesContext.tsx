@@ -47,6 +47,8 @@ export const ChallengesContext = createContext(
 const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   children
 }) => {
+  const { UserDataOfDatabase } = useUsers()
+
   const { UserConected } = useContext(AuthenticationContext)
 
   const [ChallengeSelectedForUser, setChallengeSelectedForUser] =
@@ -58,8 +60,6 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   const [ChallengesCompletedUser, setChallengesCompletedUser] = useState(0)
 
   const CalcExperienceToNextLevel = Math.pow((LevelCurrent + 1) * 5, 2)
-
-  const { UserDataOfDatabase } = useUsers()
 
   function selectNewChallenge() {
     const RadomChallengeIndex = Math.floor(

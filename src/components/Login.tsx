@@ -4,11 +4,15 @@ import { useRouter } from 'next/router'
 import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
 import { Content } from '../styles/components/Login'
-import { database, firebase } from '../services/firebase'
+import { database } from '../services/firebase'
 import { toast } from 'react-toastify'
+import { useUsers } from '../hooks/useUsers'
 
 const Login: React.FC = () => {
   const [UsernameLength, setUsernameLength] = useState('')
+
+  const { CreateNewUser } = useUsers()
+
   const router = useRouter()
 
   const { UserConected, singInWithGoogleAccount } = useContext(
@@ -18,20 +22,33 @@ const Login: React.FC = () => {
   async function handleCreateNewUserOrLoginUserExists() {
     if (!UserConected) {
       await singInWithGoogleAccount()
+
+      await CreateNewUser()
+
+      router.push('/challenges')
+      return toast.success('Cadastro efetuado com sucesso!')
     }
 
-    await firebase.database().ref(`users/${UserConected?.id}`).set({
-      Username: UserConected?.username,
-      LevelUser: 1,
-      ExperienceUser: 0,
-      TotalExperienceUser: 0,
-      ChallengesCompleted: 0
-    })
-
-    toast.success('Login efetuado com sucesso!')
-
-    router.push('/challenges')
+    if (UserConected) {
+      router.push('/challenges')
+      return toast.success('Login efetuado com sucesso!')
+    }
   }
+
+  //   const UserDatabaseRef = database.ref(`users`)
+
+  //   UserDatabaseRef.on('value', snapshot => {
+  //     snapshot.forEach(data => {
+  //       if (UserConected?.id === data.key) {
+  //         router.push('/challenges')
+  //       } else {
+  //         RegisterUser()
+  //       }
+  //     })
+  //   })
+
+  //   return
+  // }
 
   return (
     <Content>

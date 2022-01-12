@@ -31,5 +31,14 @@ export function useUsers() {
     }
   }, [])
 
-  return { UserDataOfDatabase }
+  async function CreateNewUser() {
+    await database.ref(`users/${UserConected?.id}`).set({
+      LevelUser: 1,
+      ExperienceUser: 0,
+      TotalExperienceUser: 0,
+      ChallengesCompleted: 0
+    })
+  }
+
+  return { UserDataOfDatabase, CreateNewUser }
 }
