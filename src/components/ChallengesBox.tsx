@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { CountdownContext } from '../contexts/CountdownContext'
 
 import { Content } from '../styles/components/ChallengesBox'
+
 import { ChallengesContext } from '../contexts/ChallengesContext'
 
 const ChallengesBox: React.FC = () => {
@@ -19,9 +20,9 @@ const ChallengesBox: React.FC = () => {
   } = useContext(ChallengesContext)
 
   function SuccessCompletedChallenge() {
-    ExperienceCurrentUpAndLevelUserUp()
     ResetCountdown()
     ChallengesUpUser()
+    ExperienceCurrentUpAndLevelUserUp()
   }
 
   function FailedCompletedChallenge() {

@@ -1,22 +1,28 @@
 import React, { useContext } from 'react'
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
 import { ChallengesContext } from '../contexts/ChallengesContext'
+import { useUsers } from '../hooks/useUsers'
 
 import { Content } from '../styles/components/Profile'
 
 const Profile: React.FC = () => {
   const { LevelCurrent } = useContext(ChallengesContext)
 
+  const { UserConected } = useContext(AuthenticationContext)
+
   return (
     <Content>
       <div className="profileUser">
         <img
-          src="https://avatars.githubusercontent.com/u/88504998?v=4"
-          alt="Imagem de perfil do usuário logado."
+          src={UserConected?.avatar}
+          alt={`Imagem de perfil de ${UserConected?.name}.`}
         />
 
         <div className="infosProfile">
-          <h2>Adair Juneo</h2>
+          <h2>
+            {UserConected?.name} - {UserConected?.username}
+          </h2>
 
           <span className="levelUser">
             <img
