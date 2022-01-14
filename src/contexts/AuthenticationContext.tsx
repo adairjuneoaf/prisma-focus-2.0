@@ -1,11 +1,19 @@
 import router from 'next/router'
-import React, { createContext, ReactNode, useEffect, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 import { toast } from 'react-toastify'
 
 import { auth, firebase } from '../services/firebase'
 
 import { useCreateDataUser } from '../hooks/useCreateDataUser'
+
+import useExistUser from '../hooks/useExistUser'
 
 type AuthenticationContextProviderProps = {
   children: ReactNode
@@ -63,16 +71,6 @@ const AuthenticationContextProvider: React.FC<
       GoogleProvider
     )
 
-    await firebase
-      .database()
-      .ref(`users/${ResultConnectionGoogleProvider.user?.uid}`)
-      .once('value', snapshot => {
-        if (snapshot.exists()) {
-          toast.success('Login efetuado com sucesso!')
-          return router.push(`/challenges`)
-        } else useCreateDataUser(ResultConnectionGoogleProvider.user?.uid)
-      })
-
     if (ResultConnectionGoogleProvider.user) {
       const { uid, email, displayName, photoURL } =
         ResultConnectionGoogleProvider.user
@@ -88,6 +86,16 @@ const AuthenticationContextProvider: React.FC<
         avatar: photoURL,
         email: email
       })
+
+      await firebase
+        .database()
+        .ref(`users/${uid}`)
+        .once('value', snapshot => {
+          if (snapshot.exists()) {
+            toast.success('Login efetuado com sucesso!')
+            return router.push(`/challenges/${uid}`)
+          } else return useCreateDataUser(uid)
+        })
     }
   }
 

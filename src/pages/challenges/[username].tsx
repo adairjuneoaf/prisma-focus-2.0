@@ -1,21 +1,31 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Head from 'next/head'
 import { motion, AnimatePresence } from 'framer-motion'
 
-import Profile from '../components/Profile'
-import Countdown from '../components/Countdown'
-import MenuSideBar from '../components/MenuSideBar'
-import ChallengesBox from '../components/ChallengesBox'
-import LevelUpgradeModal from '../components/LevelUpgradeModal'
-import ProgressExperience from '../components/ProgressExperience'
-import ChallengesCompletedUser from '../components/ChallengesCompletedUser'
+import Profile from '../../components/Profile'
+import Countdown from '../../components/Countdown'
+import MenuSideBar from '../../components/MenuSideBar'
+import ChallengesBox from '../../components/ChallengesBox'
+import LevelUpgradeModal from '../../components/LevelUpgradeModal'
+import ProgressExperience from '../../components/ProgressExperience'
+import ChallengesCompletedUser from '../../components/ChallengesCompletedUser'
 
-import { Container, Content } from '../styles/pages/Challenges'
+import { Container, Content } from '../../styles/pages/Challenges'
 
-import useExistUser from '../hooks/useExistUser'
-import { AuthenticationContext } from '../contexts/AuthenticationContext'
+import { useRouter } from 'next/router'
+import { ChallengesContext } from '../../contexts/ChallengesContext'
+import { AuthenticationContext } from '../../contexts/AuthenticationContext'
 
 const Challenges: React.FC = () => {
+  const { loadingInitialData } = useContext(ChallengesContext)
+  const { UserConected } = useContext(AuthenticationContext)
+
+  // const router = useRouter()
+
+  // const { username } = router.query
+
+  loadingInitialData(String(UserConected?.id))
+
   return (
     <Container>
       <Head>

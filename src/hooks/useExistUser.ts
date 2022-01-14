@@ -1,15 +1,6 @@
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { database } from '../services/firebase'
-
-type FirebaseDatabaseType = Record<
-  number,
-  {
-    LevelUser: number
-    ExperienceUser: number
-    ChallengesCompleted: number
-    TotalExperienceUser: number
-  }
->
 
 type UserDatabaseType = {
   LevelUser: number
@@ -18,13 +9,17 @@ type UserDatabaseType = {
   TotalExperienceUser: number
 }
 
-const useExistUser = (UserID?: string) => {
+const useExistUser = () => {
   const [dataOfDatabase, setDataOfDatabase] = useState<UserDatabaseType>()
 
-  useEffect(() => {
-    const UserDatabaseRef = database.ref(`users/${UserID}`)
+  const router = useRouter()
 
-    UserDatabaseRef.on('value', databasePrismaFocus => {
+  const { username } = router.query
+
+  useEffect(() => {
+    const UserDatabaseRef = database.ref(`users/${String(username)}`)
+
+    UserDatabaseRef.once('value', databasePrismaFocus => {
       const data: UserDatabaseType = databasePrismaFocus.val()
 
       setDataOfDatabase(data)

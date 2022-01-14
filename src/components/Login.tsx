@@ -19,7 +19,7 @@ const Login: React.FC = () => {
       await singInWithGoogleAccount()
     }
 
-    router.push('/challenges')
+    router.push(`/challenges/${UserConected?.id}`)
   }
 
   return (

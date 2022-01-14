@@ -1,10 +1,17 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 import ChallengesJSON from '../../challenges.json'
 
 import { AuthenticationContext } from './AuthenticationContext'
 
 import { database } from '../services/firebase'
+import { useRouter } from 'next/router'
 
 interface ChallengesContextProvider {
   children: ReactNode
@@ -34,6 +41,7 @@ interface ChallengesContextProviderProps {
   ChallengesCompletedUser: number
   ChallengeSelectedForUser: Challenge
   CalcExperienceToNextLevel: number
+  loadingInitialData: (UserID: string) => void
   ExperienceCurrentUpAndLevelUserUp: () => void
 }
 
@@ -111,6 +119,24 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
     setChallengeSelectedForUser(null)
   }
 
+  async function loadingInitialData(UserID: string) {
+    const UserDatabaseRef = database.ref(`users/${UserID}`)
+
+    useEffect(() => {
+      UserDatabaseRef.once('value', databasePrismaFocus => {
+        const data: UserDatabaseType = databasePrismaFocus.val()
+
+        setLevelCurrent(data?.LevelUser)
+        setExperienceCurrent(data?.ExperienceUser)
+        setChallengesCompletedUser(data?.ChallengesCompleted)
+      })
+
+      return () => {
+        UserDatabaseRef.off('value')
+      }
+    }, [])
+  }
+
   return (
     <ChallengesContext.Provider
       value={{
@@ -119,6 +145,7 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
         CloseLevelUpModal,
         ExperienceCurrent,
         selectNewChallenge,
+        loadingInitialData,
         ResetChallengeFailed,
         ChallengesCompletedUser,
         OpenOrCloseLevelUpModal,
