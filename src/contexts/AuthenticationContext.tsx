@@ -13,8 +13,6 @@ import { auth, firebase } from '../services/firebase'
 
 import { useCreateDataUser } from '../hooks/useCreateDataUser'
 
-import useExistUser from '../hooks/useExistUser'
-
 type AuthenticationContextProviderProps = {
   children: ReactNode
 }

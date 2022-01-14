@@ -12,20 +12,7 @@ import ChallengesCompletedUser from '../../components/ChallengesCompletedUser'
 
 import { Container, Content } from '../../styles/pages/Challenges'
 
-import { useRouter } from 'next/router'
-import { ChallengesContext } from '../../contexts/ChallengesContext'
-import { AuthenticationContext } from '../../contexts/AuthenticationContext'
-
 const Challenges: React.FC = () => {
-  const { loadingInitialData } = useContext(ChallengesContext)
-  const { UserConected } = useContext(AuthenticationContext)
-
-  // const router = useRouter()
-
-  // const { username } = router.query
-
-  loadingInitialData(String(UserConected?.id))
-
   return (
     <Container>
       <Head>
