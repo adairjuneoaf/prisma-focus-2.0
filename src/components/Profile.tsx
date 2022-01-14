@@ -1,14 +1,20 @@
+import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
 import { ChallengesContext } from '../contexts/ChallengesContext'
+import { useGetDataUser } from '../hooks/useGetDataUser'
 
 import { Content } from '../styles/components/Profile'
 
 const Profile: React.FC = () => {
-  const { LevelCurrent } = useContext(ChallengesContext)
+  const router = useRouter()
+
+  const { username } = router.query
 
   const { UserConected } = useContext(AuthenticationContext)
+
+  const { dataOfDatabase } = useGetDataUser(String(username))
 
   return (
     <Content>
@@ -26,7 +32,7 @@ const Profile: React.FC = () => {
               src="/svg/up_level.svg"
               alt="Icone que indica o level do usuário na plataforma."
             />
-            <p>Level {LevelCurrent}</p>
+            <p>Level {dataOfDatabase.LevelUser}</p>
           </span>
         </div>
       </div>
