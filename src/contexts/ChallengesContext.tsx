@@ -4,9 +4,8 @@ import ChallengesJSON from '../../challenges.json'
 
 import { AuthenticationContext } from './AuthenticationContext'
 
-import { useUsers } from '../hooks/useUsers'
-
 import { database } from '../services/firebase'
+import { useExistUser } from '../hooks/useExistUser'
 
 interface ChallengesContextProvider {
   children: ReactNode
@@ -32,6 +31,7 @@ interface ChallengesContextProviderProps {
   ExperienceCurrent: number
   CloseLevelUpModal: () => void
   selectNewChallenge: () => void
+  loadingInitialData: () => void
   ResetChallengeFailed: () => void
   OpenOrCloseLevelUpModal: boolean
   ChallengesCompletedUser: number
@@ -47,19 +47,24 @@ export const ChallengesContext = createContext(
 const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   children
 }) => {
-  const { UserDataOfDatabase } = useUsers()
-
   const { UserConected } = useContext(AuthenticationContext)
+  const { dataOfUsersOfDatabase } = useExistUser(UserConected?.id)
 
   const [ChallengeSelectedForUser, setChallengeSelectedForUser] =
     useState<any>(null)
 
-  const [LevelCurrent, setLevelCurrent] = useState(0)
+  const [LevelCurrent, setLevelCurrent] = useState(1)
   const [ExperienceCurrent, setExperienceCurrent] = useState(0)
   const [OpenOrCloseLevelUpModal, setOpenOrCloseLevelUpModal] = useState(false)
   const [ChallengesCompletedUser, setChallengesCompletedUser] = useState(0)
 
   const CalcExperienceToNextLevel = Math.pow((LevelCurrent + 1) * 5, 2)
+
+  function loadingInitialData() {
+    setLevelCurrent(dataOfUsersOfDatabase.LevelUser)
+    setExperienceCurrent(dataOfUsersOfDatabase.ExperienceUser)
+    setChallengesCompletedUser(dataOfUsersOfDatabase.ChallengesCompleted)
+  }
 
   function selectNewChallenge() {
     const RadomChallengeIndex = Math.floor(
@@ -124,6 +129,7 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
         CloseLevelUpModal,
         ExperienceCurrent,
         selectNewChallenge,
+        loadingInitialData,
         ResetChallengeFailed,
         ChallengesCompletedUser,
         OpenOrCloseLevelUpModal,

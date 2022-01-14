@@ -1,6 +1,5 @@
 import React from 'react'
 import Head from 'next/head'
-
 import { motion, AnimatePresence } from 'framer-motion'
 
 import Profile from '../components/Profile'

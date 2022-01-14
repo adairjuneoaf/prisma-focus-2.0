@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
 import { ChallengesContext } from '../contexts/ChallengesContext'
-import { useUsers } from '../hooks/useUsers'
 
 import { Content } from '../styles/components/Profile'
 
