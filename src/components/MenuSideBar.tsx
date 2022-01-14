@@ -1,9 +1,11 @@
 import { useRouter } from 'next/router'
-import React from 'react'
+import React, { useContext } from 'react'
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
 import { Content } from '../styles/components/MenuSideBar'
 
 const MenuSideBar: React.FC = () => {
+  const { UserConected } = useContext(AuthenticationContext)
   const router = useRouter()
 
   return (
@@ -12,9 +14,11 @@ const MenuSideBar: React.FC = () => {
 
       <div className="buttonsMenu">
         <a
-          href="/challenges"
+          href={`/challenges/${UserConected?.id}`}
           title="Ir a página de desafios."
-          className={` ${router.route === '/challenges' ? 'routeActive' : ''}`}
+          className={` ${
+            router.route === '/challenges/[username]' ? 'routeActive' : ''
+          }`}
         >
           <svg
             width="32"
