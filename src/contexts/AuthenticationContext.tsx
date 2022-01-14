@@ -1,19 +1,11 @@
 import router from 'next/router'
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { createContext, ReactNode, useEffect, useState } from 'react'
 
 import { toast } from 'react-toastify'
 
 import { auth, firebase } from '../services/firebase'
 
 import { useCreateDataUser } from '../hooks/useCreateDataUser'
-
-import { ChallengesContext } from '../contexts/ChallengesContext'
 
 type AuthenticationContextProviderProps = {
   children: ReactNode

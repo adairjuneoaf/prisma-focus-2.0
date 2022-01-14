@@ -1,34 +1,33 @@
-import router from 'next/router'
-import { useState, useEffect } from 'react'
-
-import { toast } from 'react-toastify'
-
+import { useEffect, useState } from 'react'
 import { database } from '../services/firebase'
 
-type DatabaseUsersType = {
-  ChallengesCompleted: number
-  ExperienceUser: number
+type FirebaseDatabaseType = Record<
+  number,
+  {
+    LevelUser: number
+    ExperienceUser: number
+    ChallengesCompleted: number
+    TotalExperienceUser: number
+  }
+>
+
+type UserDatabaseType = {
   LevelUser: number
+  ExperienceUser: number
+  ChallengesCompleted: number
   TotalExperienceUser: number
 }
 
-export function useExistUser(UserID: string | undefined) {
-  const [dataOfUsersOfDatabase, setDataOfUsersOfDatabase] =
-    useState<DatabaseUsersType>({
-      ChallengesCompleted: 0,
-      ExperienceUser: 0,
-      LevelUser: 1,
-      TotalExperienceUser: 0
-    })
+const useExistUser = (UserID?: string) => {
+  const [dataOfDatabase, setDataOfDatabase] = useState<UserDatabaseType>()
 
   useEffect(() => {
     const UserDatabaseRef = database.ref(`users/${UserID}`)
 
     UserDatabaseRef.on('value', databasePrismaFocus => {
-      const data = databasePrismaFocus.val()
+      const data: UserDatabaseType = databasePrismaFocus.val()
 
-      setDataOfUsersOfDatabase(data)
-      console.log(data)
+      setDataOfDatabase(data)
     })
 
     return () => {
@@ -36,5 +35,7 @@ export function useExistUser(UserID: string | undefined) {
     }
   }, [])
 
-  return { dataOfUsersOfDatabase }
+  return { dataOfDatabase }
 }
+
+export default useExistUser

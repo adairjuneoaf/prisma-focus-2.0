@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Head from 'next/head'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -11,6 +11,9 @@ import ProgressExperience from '../components/ProgressExperience'
 import ChallengesCompletedUser from '../components/ChallengesCompletedUser'
 
 import { Container, Content } from '../styles/pages/Challenges'
+
+import useExistUser from '../hooks/useExistUser'
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
 const Challenges: React.FC = () => {
   return (

@@ -5,7 +5,6 @@ import ChallengesJSON from '../../challenges.json'
 import { AuthenticationContext } from './AuthenticationContext'
 
 import { database } from '../services/firebase'
-import { useExistUser } from '../hooks/useExistUser'
 
 interface ChallengesContextProvider {
   children: ReactNode
@@ -17,12 +16,11 @@ interface Challenge {
   description: string
 }
 
-interface UseUsersTypes {
-  ChallengesCompleted: string
-  ExperienceUser: number
+interface UserDatabaseType {
   LevelUser: number
+  ExperienceUser: number
+  ChallengesCompleted: number
   TotalExperienceUser: number
-  Username: string
 }
 
 interface ChallengesContextProviderProps {
@@ -31,7 +29,6 @@ interface ChallengesContextProviderProps {
   ExperienceCurrent: number
   CloseLevelUpModal: () => void
   selectNewChallenge: () => void
-  loadingInitialData: () => void
   ResetChallengeFailed: () => void
   OpenOrCloseLevelUpModal: boolean
   ChallengesCompletedUser: number
@@ -48,7 +45,6 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   children
 }) => {
   const { UserConected } = useContext(AuthenticationContext)
-  const { dataOfUsersOfDatabase } = useExistUser(UserConected?.id)
 
   const [ChallengeSelectedForUser, setChallengeSelectedForUser] =
     useState<any>(null)
@@ -59,12 +55,6 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   const [ChallengesCompletedUser, setChallengesCompletedUser] = useState(0)
 
   const CalcExperienceToNextLevel = Math.pow((LevelCurrent + 1) * 5, 2)
-
-  function loadingInitialData() {
-    setLevelCurrent(dataOfUsersOfDatabase.LevelUser)
-    setExperienceCurrent(dataOfUsersOfDatabase.ExperienceUser)
-    setChallengesCompletedUser(dataOfUsersOfDatabase.ChallengesCompleted)
-  }
 
   function selectNewChallenge() {
     const RadomChallengeIndex = Math.floor(
@@ -129,7 +119,6 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
         CloseLevelUpModal,
         ExperienceCurrent,
         selectNewChallenge,
-        loadingInitialData,
         ResetChallengeFailed,
         ChallengesCompletedUser,
         OpenOrCloseLevelUpModal,
