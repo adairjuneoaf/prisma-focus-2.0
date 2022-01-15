@@ -7,6 +7,8 @@ import { CountdownContext } from '../contexts/CountdownContext'
 import { Content } from '../styles/components/ChallengesBox'
 
 import { ChallengesContext } from '../contexts/ChallengesContext'
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
+import { useGetDataUser } from '../hooks/useGetDataUser'
 
 const ChallengesBox: React.FC = () => {
   const { ActiveCountdown, HasFinishedCountdown, ResetCountdown } =
@@ -18,6 +20,10 @@ const ChallengesBox: React.FC = () => {
     ChallengeSelectedForUser,
     ExperienceCurrentUpAndLevelUserUp
   } = useContext(ChallengesContext)
+
+  const { UserConected } = useContext(AuthenticationContext)
+
+  const { dataOfDatabase } = useGetDataUser(String(UserConected?.id))
 
   function SuccessCompletedChallenge() {
     ResetCountdown()
@@ -101,7 +107,11 @@ const ChallengesBox: React.FC = () => {
                       />
                       <h2>Exercite-se</h2>
                       <p>
-                        É agora USER.NAME, vamos lá!
+                        É agora{' '}
+                        <span className="highlightInfo">
+                          {UserConected?.name}
+                        </span>
+                        , vamos lá!
                         <br />
                         {ChallengeSelectedForUser.description}
                       </p>

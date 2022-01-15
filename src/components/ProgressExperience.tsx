@@ -1,16 +1,15 @@
-import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
 import { useGetDataUser } from '../hooks/useGetDataUser'
 
 import { Content } from '../styles/components/ProgressExperience'
 
 const ProgressExperience: React.FC = () => {
-  const router = useRouter()
+  const { UserConected } = useContext(AuthenticationContext)
 
-  const { username } = router.query
-
-  const { dataOfDatabase } = useGetDataUser(String(username))
+  const { dataOfDatabase } = useGetDataUser(String(UserConected?.id))
 
   const [CurrentExperienceBar, setCurrentExperienceBar] = useState(0)
 

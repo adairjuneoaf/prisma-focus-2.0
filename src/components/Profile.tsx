@@ -1,20 +1,15 @@
-import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
+
 import { AuthenticationContext } from '../contexts/AuthenticationContext'
 
-import { ChallengesContext } from '../contexts/ChallengesContext'
 import { useGetDataUser } from '../hooks/useGetDataUser'
 
 import { Content } from '../styles/components/Profile'
 
 const Profile: React.FC = () => {
-  const router = useRouter()
-
-  const { username } = router.query
-
   const { UserConected } = useContext(AuthenticationContext)
 
-  const { dataOfDatabase } = useGetDataUser(String(username))
+  const { dataOfDatabase } = useGetDataUser(String(UserConected?.id))
 
   return (
     <Content>

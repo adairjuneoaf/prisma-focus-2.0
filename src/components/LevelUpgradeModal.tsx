@@ -3,12 +3,19 @@ import React, { useContext } from 'react'
 import Modal from 'react-modal'
 
 import { ChallengesContext } from '../contexts/ChallengesContext'
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
+
+import { useGetDataUser } from '../hooks/useGetDataUser'
 
 import { Content } from '../styles/components/LevelUpgradeModal'
 
 const LevelUpgradeModal: React.FC = () => {
-  const { LevelCurrent, CloseLevelUpModal, OpenOrCloseLevelUpModal } =
+  const { CloseLevelUpModal, OpenOrCloseLevelUpModal } =
     useContext(ChallengesContext)
+
+  const { UserConected } = useContext(AuthenticationContext)
+
+  const { dataOfDatabase } = useGetDataUser(String(UserConected?.id))
 
   return (
     <Modal
@@ -37,7 +44,7 @@ const LevelUpgradeModal: React.FC = () => {
 
       <Content>
         <div className="levelUploaded">
-          <h2>{LevelCurrent}</h2>
+          <h2>{dataOfDatabase.LevelUser}</h2>
         </div>
         <div className="congratulationsLevelUploaded">
           <h3>Parabéns</h3>

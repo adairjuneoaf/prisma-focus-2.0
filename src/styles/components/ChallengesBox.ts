@@ -178,6 +178,10 @@ export const Content = styled.section`
         color: ${props => props.theme.colors.primary};
 
         cursor: default;
+
+        span.highlightInfo {
+          color: ${props => props.theme.colors.tertiary};
+        }
       }
     }
   }

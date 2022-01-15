@@ -1,19 +1,15 @@
-import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 
-import { ChallengesContext } from '../contexts/ChallengesContext'
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
+
 import { useGetDataUser } from '../hooks/useGetDataUser'
 
 import { Content } from '../styles/components/ChallengesCompletedUser'
 
 const ChallengesCompletedUser: React.FC = () => {
-  const { ChallengesCompletedUser } = useContext(ChallengesContext)
+  const { UserConected } = useContext(AuthenticationContext)
 
-  const router = useRouter()
-
-  const { username } = router.query
-
-  const { dataOfDatabase } = useGetDataUser(String(username))
+  const { dataOfDatabase } = useGetDataUser(String(UserConected?.id))
 
   return (
     <Content>

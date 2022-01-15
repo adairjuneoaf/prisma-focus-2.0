@@ -12,7 +12,28 @@ import ChallengesCompletedUser from '../../components/ChallengesCompletedUser'
 
 import { Container, Content } from '../../styles/pages/Challenges'
 
+import { AuthenticationContext } from '../../contexts/AuthenticationContext'
+import { useRouter } from 'next/router'
+
 const Challenges: React.FC = () => {
+  const { UserConected } = useContext(AuthenticationContext)
+  const router = useRouter()
+
+  const { id } = router.query
+
+  useEffect(() => {
+    if (String(UserConected?.id) === id) {
+      router.push(`/challenges/${UserConected?.id}`)
+    }
+    if (String(UserConected?.id) !== id) {
+      router.push(`/challenges/${UserConected?.id}`)
+    }
+  }, [UserConected])
+
+  if (!UserConected) {
+    return null
+  }
+
   return (
     <Container>
       <Head>

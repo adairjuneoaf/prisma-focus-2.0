@@ -1,10 +1,17 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react'
 
 import ChallengesJSON from '../../challenges.json'
 
 import { AuthenticationContext } from './AuthenticationContext'
 
 import { database } from '../services/firebase'
+import { useGetDataUser } from '../hooks/useGetDataUser'
 interface ChallengesContextProvider {
   children: ReactNode
 }
@@ -15,14 +22,11 @@ interface Challenge {
   description: string
 }
 interface ChallengesContextProviderProps {
-  LevelCurrent: number
   ChallengesUpUser: () => void
-  ExperienceCurrent: number
   CloseLevelUpModal: () => void
   selectNewChallenge: () => void
   ResetChallengeFailed: () => void
   OpenOrCloseLevelUpModal: boolean
-  ChallengesCompletedUser: number
   ChallengeSelectedForUser: Challenge
   CalcExperienceToNextLevel: number
   ExperienceCurrentUpAndLevelUserUp: () => void
@@ -37,15 +41,17 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
 }) => {
   const { UserConected } = useContext(AuthenticationContext)
 
+  const { dataOfDatabase } = useGetDataUser(String(UserConected?.id))
+
   const [ChallengeSelectedForUser, setChallengeSelectedForUser] =
     useState<any>(null)
 
-  const [LevelCurrent, setLevelCurrent] = useState(1)
-  const [ExperienceCurrent, setExperienceCurrent] = useState(0)
   const [OpenOrCloseLevelUpModal, setOpenOrCloseLevelUpModal] = useState(false)
-  const [ChallengesCompletedUser, setChallengesCompletedUser] = useState(0)
 
-  const CalcExperienceToNextLevel = Math.pow((LevelCurrent + 1) * 5, 2)
+  const CalcExperienceToNextLevel = Math.pow(
+    (dataOfDatabase?.LevelUser + 1) * 5,
+    2
+  )
 
   function selectNewChallenge() {
     const RadomChallengeIndex = Math.floor(
@@ -60,19 +66,16 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   }
 
   async function LevelUpUser() {
-    setLevelCurrent(prev => prev + 1)
     setOpenOrCloseLevelUpModal(true)
 
     await database.ref(`users/${UserConected?.id}`).update({
-      LevelUser: LevelCurrent + 1
+      LevelUser: dataOfDatabase.LevelUser + 1
     })
   }
 
   async function ChallengesUpUser() {
-    setChallengesCompletedUser(prev => prev + 1)
-
     await database.ref(`users/${UserConected?.id}`).update({
-      ChallengesCompleted: ChallengesCompletedUser + 1
+      ChallengesCompleted: dataOfDatabase.ChallengesCompleted + 1
     })
   }
 
@@ -83,18 +86,18 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
 
     const { amount } = ChallengeSelectedForUser
 
-    let ExperienceFinal = ExperienceCurrent + amount
+    let ExperienceFinal = dataOfDatabase.ExperienceUser + amount
 
     if (ExperienceFinal >= CalcExperienceToNextLevel) {
       ExperienceFinal = ExperienceFinal - CalcExperienceToNextLevel
       LevelUpUser()
     }
 
-    setExperienceCurrent(ExperienceFinal)
     setChallengeSelectedForUser(null)
 
     await database.ref(`users/${UserConected?.id}`).update({
-      ExperienceUser: ExperienceFinal
+      ExperienceUser: ExperienceFinal,
+      TotalExperienceUser: dataOfDatabase.TotalExperienceUser + amount
     })
   }
 
@@ -105,13 +108,10 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
   return (
     <ChallengesContext.Provider
       value={{
-        LevelCurrent,
         ChallengesUpUser,
         CloseLevelUpModal,
-        ExperienceCurrent,
         selectNewChallenge,
         ResetChallengeFailed,
-        ChallengesCompletedUser,
         OpenOrCloseLevelUpModal,
         ChallengeSelectedForUser,
         CalcExperienceToNextLevel,
