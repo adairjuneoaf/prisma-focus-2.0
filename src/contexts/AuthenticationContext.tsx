@@ -1,11 +1,5 @@
 import router from 'next/router'
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react'
+import React, { createContext, ReactNode, useEffect, useState } from 'react'
 
 import { toast } from 'react-toastify'
 
@@ -90,8 +84,8 @@ const AuthenticationContextProvider: React.FC<
         .ref(`users/${uid}`)
         .once('value', snapshot => {
           if (snapshot.exists()) {
-            toast.success('Login efetuado com sucesso!')
-            return router.push(`/challenges/${uid}`)
+            router.push(`/challenges/${uid}`)
+            return toast.success('Login efetuado com sucesso!')
           } else return useCreateDataUser(uid)
         })
     }

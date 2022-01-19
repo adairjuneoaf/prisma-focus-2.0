@@ -1,5 +1,7 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Head from 'next/head'
+
+import { database } from '../services/firebase'
 
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -7,8 +9,21 @@ import Profile from '../components/Profile'
 import MenuSideBar from '../components/MenuSideBar'
 
 import { Container, Content } from '../styles/pages/Leaderboard'
+import UserLeaderboard from '../components/UserLeaderboard'
+import { useGetLeaderboardData } from '../hooks/useGetLeaderboardData'
+
+type DataOfDatabaseTypes = {
+  LevelUser: number
+  ExperienceUser: number
+  TotalExperienceUser: number
+  ChallengesCompleted: number
+  name: string
+  avatar: string
+}
 
 const Leaderboard: React.FC = () => {
+  const { arrayChildren } = useGetLeaderboardData()
+
   return (
     <Container>
       <Head>
@@ -35,67 +50,20 @@ const Leaderboard: React.FC = () => {
                   <th id="titleChallengesUser">DESAFIOS</th>
                   <th id="titleExperienceUser">EXPERIÊNCIA</th>
                 </tr>
-                <tr className="userInfos">
-                  <td id="userId">1</td>
-                  <td id="userProfile">
-                    <Profile />
-                  </td>
-                  <td id="userChallengesCompleted">
-                    <span className="highlightInfo">10</span> completados
-                  </td>
-                  <td id="userExperience">
-                    <span className="highlightInfo">15000</span> xp
-                  </td>
-                </tr>
-                <tr className="userInfos">
-                  <td id="userId">2</td>
-                  <td id="userProfile">
-                    <Profile />
-                  </td>
-                  <td id="userChallengesCompleted">
-                    <span className="highlightInfo">9</span> completados
-                  </td>
-                  <td id="userExperience">
-                    <span className="highlightInfo">13900</span> xp
-                  </td>
-                </tr>
 
-                <tr className="userInfos">
-                  <td id="userId">3</td>
-                  <td id="userProfile">
-                    <Profile />
-                  </td>
-                  <td id="userChallengesCompleted">
-                    <span className="highlightInfo">9</span> completados
-                  </td>
-                  <td id="userExperience">
-                    <span className="highlightInfo">13900</span> xp
-                  </td>
-                </tr>
-                <tr className="userInfos">
-                  <td id="userId">4</td>
-                  <td id="userProfile">
-                    <Profile />
-                  </td>
-                  <td id="userChallengesCompleted">
-                    <span className="highlightInfo">9</span> completados
-                  </td>
-                  <td id="userExperience">
-                    <span className="highlightInfo">13900</span> xp
-                  </td>
-                </tr>
-                <tr className="userInfos">
-                  <td id="userId">5</td>
-                  <td id="userProfile">
-                    <Profile />
-                  </td>
-                  <td id="userChallengesCompleted">
-                    <span className="highlightInfo">9</span> completados
-                  </td>
-                  <td id="userExperience">
-                    <span className="highlightInfo">13900</span> xp
-                  </td>
-                </tr>
+                {arrayChildren
+                  .map(data => {
+                    return (
+                      <UserLeaderboard
+                        name={data.name}
+                        avatar={data.avatar}
+                        LevelUser={data.LevelUser}
+                        ChallengesCompleted={data.ChallengesCompleted}
+                        TotalExperienceUser={data.TotalExperienceUser}
+                      />
+                    )
+                  })
+                  .reverse()}
               </table>
             </div>
           </Content>

@@ -8,7 +8,7 @@ interface DataOfDatabaseTypes {
   ChallengesCompleted: number
 }
 
-export function useGetDataUser(username: string) {
+export function useGetDataUser(id: string) {
   const [dataOfDatabase, setDataOfDatabase] = useState<DataOfDatabaseTypes>({
     LevelUser: 1,
     ExperienceUser: 0,
@@ -17,7 +17,7 @@ export function useGetDataUser(username: string) {
   })
 
   useEffect(() => {
-    const databaseRef = database.ref(`users/${username}`)
+    const databaseRef = database.ref(`users/${id}`)
 
     databaseRef.on('value', user => {
       const dataUser = user.val()
@@ -28,7 +28,7 @@ export function useGetDataUser(username: string) {
     return () => {
       databaseRef.off('value')
     }
-  }, [username])
+  }, [id])
 
   return { dataOfDatabase }
 }

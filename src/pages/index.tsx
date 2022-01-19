@@ -1,11 +1,23 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
 import Head from 'next/head'
 
 import Login from '../components/Login'
 
 import { Container, Content } from '../styles/pages/Home'
+import { AuthenticationContext } from '../contexts/AuthenticationContext'
+import { useRouter } from 'next/router'
 
 const Home: React.FC = () => {
+  // const { UserConected } = useContext(AuthenticationContext)
+
+  // const router = useRouter()
+
+  // useEffect(() => {
+  //   if (UserConected) {
+  //     router.push(`/challenges/${UserConected.id}`)
+  //   }
+  // }, [UserConected])
+
   return (
     <div>
       <Head>

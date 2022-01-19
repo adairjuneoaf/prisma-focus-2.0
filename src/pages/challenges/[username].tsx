@@ -19,20 +19,11 @@ const Challenges: React.FC = () => {
   const { UserConected } = useContext(AuthenticationContext)
   const router = useRouter()
 
-  const { id } = router.query
-
   useEffect(() => {
-    if (String(UserConected?.id) === id) {
-      router.push(`/challenges/${UserConected?.id}`)
-    }
-    if (String(UserConected?.id) !== id) {
-      router.push(`/challenges/${UserConected?.id}`)
+    if (!UserConected) {
+      router.push('/')
     }
   }, [UserConected])
-
-  if (!UserConected) {
-    return null
-  }
 
   return (
     <Container>

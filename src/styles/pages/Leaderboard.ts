@@ -63,7 +63,7 @@ export const Content = styled.section`
         }
       }
 
-      .userInfos {
+      /* .userInfos {
         td {
           padding: 1rem 0rem;
           background: #ffffff;
@@ -108,7 +108,7 @@ export const Content = styled.section`
 
           border-radius: 0 5px 5px 0;
         }
-      }
+      } */
     }
   }
 `
