@@ -100,7 +100,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ arrayObjects }) => {
   )
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const databaseRef = database.ref('users')
 
   var arrayObjects: Array<DataOfDatabaseTypes> = new Array()
@@ -118,7 +118,8 @@ export async function getServerSideProps() {
   return {
     props: {
       arrayObjects
-    }
+    },
+    revalidate: 5
   }
 }
 
