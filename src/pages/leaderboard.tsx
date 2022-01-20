@@ -1,5 +1,6 @@
 import React from 'react'
 import Head from 'next/head'
+import { GetStaticProps } from 'next'
 
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -100,7 +101,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ arrayObjects }) => {
   )
 }
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const databaseRef = database.ref('users')
 
   var arrayObjects: Array<DataOfDatabaseTypes> = new Array()
