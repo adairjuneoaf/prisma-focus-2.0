@@ -1,0 +1,5 @@
+{
+  "firebase": "prisma-focus",
+  "public": "./app",
+  "ignore": []
+}

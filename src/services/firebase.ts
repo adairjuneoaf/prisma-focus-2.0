@@ -4,13 +4,13 @@ import 'firebase/compat/auth'
 import 'firebase/compat/database'
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBI00giQwURaVWmnsi8oIy6SbFGm8Rg7yE',
-  authDomain: 'prisma-focus.firebaseapp.com',
-  databaseURL: 'https://prisma-focus-default-rtdb.firebaseio.com',
-  projectId: 'prisma-focus',
-  storageBucket: 'prisma-focus.appspot.com',
-  messagingSenderId: '438227594951',
-  appId: '1:438227594951:web:7682297fcf06b76338d8e2'
+  apiKey: process.env.NEXT_PUBLIC_APP_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_APP_AUTH_DOMAIN,
+  databaseURL: process.env.NEXT_PUBLIC_APP_DATABASE_URL,
+  projectId: process.env.NEXT_PUBLIC_APP_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_APP_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_APP_APP_ID
 }
 
 firebase.initializeApp(firebaseConfig)

@@ -100,7 +100,7 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ arrayObjects }) => {
   )
 }
 
-export const getStaticProps = async () => {
+export async function getServerSideProps() {
   const databaseRef = database.ref('users')
 
   var arrayObjects: Array<DataOfDatabaseTypes> = new Array()
@@ -112,6 +112,8 @@ export const getStaticProps = async () => {
       arrayObjects.push(childrenData)
     })
   })
+
+  console.log(arrayObjects)
 
   return {
     props: {
