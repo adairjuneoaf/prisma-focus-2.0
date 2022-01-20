@@ -29,7 +29,7 @@ export const CountdownContext = createContext({} as CountdownContextProps)
 const CountdownContextProvider: React.FC<CountdownContextProviderProps> = ({
   children
 }) => {
-  const [Timer, setTimer] = useState(0.2 * 60)
+  const [Timer, setTimer] = useState(25 * 60)
   const [HasFinishedCountdown, setHasFinishedCountdown] = useState(false)
 
   const { selectNewChallenge } = useContext(ChallengesContext)
@@ -58,7 +58,7 @@ const CountdownContextProvider: React.FC<CountdownContextProviderProps> = ({
   }, [ActiveCountdown, Timer])
 
   function ResetCountdown() {
-    setTimer(0.2 * 60)
+    setTimer(25 * 60)
     setActiveCountdown(false)
     setHasFinishedCountdown(false)
     clearTimeout(CountdownTimeout)

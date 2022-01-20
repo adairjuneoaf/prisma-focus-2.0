@@ -42,52 +42,55 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ arrayObjects }) => {
             <div className="leaderboardUsers">
               <h1>Leaderboard</h1>
               <table>
-                <tr className="titleTableLeaderboard">
-                  <th id="titlePositionUser">POSIÇÃO</th>
-                  <th id="titleProfileUser">USUÁRIO</th>
-                  <th id="titleChallengesUser">DESAFIOS</th>
-                  <th id="titleExperienceUser">EXPERIÊNCIA</th>
-                </tr>
+                <thead>
+                  <tr className="titleTableLeaderboard">
+                    <th id="titlePositionUser">POSIÇÃO</th>
+                    <th id="titleProfileUser">USUÁRIO</th>
+                    <th id="titleChallengesUser">DESAFIOS</th>
+                    <th id="titleExperienceUser">EXPERIÊNCIA</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {arrayObjects.map((data, index) => {
+                    return (
+                      <tr key={index}>
+                        <td id="userId">{index + 1}</td>
+                        <td id="userProfile">
+                          <div className="profileData">
+                            <img
+                              src={data.avatar}
+                              alt={`Imagem de perfil de ${data.name}.`}
+                            />
 
-                {arrayObjects.map((data, index) => {
-                  return (
-                    <tr key={index}>
-                      <td id="userId">{index + 1}</td>
-                      <td id="userProfile">
-                        <div className="profileData">
-                          <img
-                            src={data.avatar}
-                            alt={`Imagem de perfil de ${data.name}.`}
-                          />
+                            <div className="infosProfile">
+                              <h2>{data.name}</h2>
 
-                          <div className="infosProfile">
-                            <h2>{data.name}</h2>
-
-                            <span className="levelUser">
-                              <img
-                                src="/svg/up_level.svg"
-                                alt="Icone que indica o level do usuário na plataforma."
-                              />
-                              <p>Level {data.LevelUser}</p>
-                            </span>
+                              <span className="levelUser">
+                                <img
+                                  src="/svg/up_level.svg"
+                                  alt="Icone que indica o level do usuário na plataforma."
+                                />
+                                <p>Level {data.LevelUser}</p>
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </td>
-                      <td id="userChallengesCompleted">
-                        <span className="highlightInfo">
-                          {data.ChallengesCompleted}
-                        </span>{' '}
-                        completados
-                      </td>
-                      <td id="userExperience">
-                        <span className="highlightInfo">
-                          {data.TotalExperienceUser}
-                        </span>{' '}
-                        xp
-                      </td>
-                    </tr>
-                  )
-                })}
+                        </td>
+                        <td id="userChallengesCompleted">
+                          <span className="highlightInfo">
+                            {data.ChallengesCompleted}
+                          </span>{' '}
+                          completados
+                        </td>
+                        <td id="userExperience">
+                          <span className="highlightInfo">
+                            {data.TotalExperienceUser}
+                          </span>{' '}
+                          xp
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
               </table>
             </div>
           </Content>

@@ -17,7 +17,7 @@ const Countdown: React.FC = () => {
   const [CurrentProgressCycle, setCurrentProgressCycle] = useState(0)
 
   useEffect(() => {
-    setCurrentProgressCycle(((Timer / 60) * 100) / 0.2)
+    setCurrentProgressCycle(((Timer / 60) * 100) / 25)
   }, [Timer])
 
   const [MinutesLeft, MinutesRight] = String(minutes).padStart(2, '0').split('')
