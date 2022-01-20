@@ -116,8 +116,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       arrayObjects
-    },
-    revalidate: 60
+    }
   }
 }
 
