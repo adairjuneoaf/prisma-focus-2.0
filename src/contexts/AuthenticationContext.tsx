@@ -86,7 +86,7 @@ const AuthenticationContextProvider: React.FC<
           if (snapshot.exists()) {
             router.push(`/challenges/${uid}`)
             return toast.success('Login efetuado com sucesso!')
-          } else return useCreateDataUser(uid)
+          } else return useCreateDataUser(uid, displayName, photoURL)
         })
     }
   }

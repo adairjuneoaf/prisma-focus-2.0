@@ -34,6 +34,8 @@ const ChallengesBox: React.FC = () => {
   function FailedCompletedChallenge() {
     ResetCountdown()
     ResetChallengeFailed()
+
+    new Audio('/notification/mario_game_over.mp3').play()
   }
 
   return (

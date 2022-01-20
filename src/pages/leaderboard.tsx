@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Head from 'next/head'
-
-import { database } from '../services/firebase'
 
 import { AnimatePresence, motion } from 'framer-motion'
 
-import Profile from '../components/Profile'
 import MenuSideBar from '../components/MenuSideBar'
 
 import { Container, Content } from '../styles/pages/Leaderboard'
-import UserLeaderboard from '../components/UserLeaderboard'
-import { useGetLeaderboardData } from '../hooks/useGetLeaderboardData'
+import { database } from '../services/firebase'
 
 type DataOfDatabaseTypes = {
   LevelUser: number
@@ -21,9 +17,11 @@ type DataOfDatabaseTypes = {
   avatar: string
 }
 
-const Leaderboard: React.FC = () => {
-  const { arrayChildren } = useGetLeaderboardData()
+type LeaderboardProps = {
+  arrayObjects: Array<DataOfDatabaseTypes>
+}
 
+const Leaderboard: React.FC<LeaderboardProps> = ({ arrayObjects }) => {
   return (
     <Container>
       <Head>
@@ -51,19 +49,45 @@ const Leaderboard: React.FC = () => {
                   <th id="titleExperienceUser">EXPERIÊNCIA</th>
                 </tr>
 
-                {arrayChildren
-                  .map(data => {
-                    return (
-                      <UserLeaderboard
-                        name={data.name}
-                        avatar={data.avatar}
-                        LevelUser={data.LevelUser}
-                        ChallengesCompleted={data.ChallengesCompleted}
-                        TotalExperienceUser={data.TotalExperienceUser}
-                      />
-                    )
-                  })
-                  .reverse()}
+                {arrayObjects.map((data, index) => {
+                  return (
+                    <tr key={index}>
+                      <td id="userId">{index + 1}</td>
+                      <td id="userProfile">
+                        <div className="profileData">
+                          <img
+                            src={data.avatar}
+                            alt={`Imagem de perfil de ${data.name}.`}
+                          />
+
+                          <div className="infosProfile">
+                            <h2>{data.name}</h2>
+
+                            <span className="levelUser">
+                              <img
+                                src="/svg/up_level.svg"
+                                alt="Icone que indica o level do usuário na plataforma."
+                              />
+                              <p>Level {data.LevelUser}</p>
+                            </span>
+                          </div>
+                        </div>
+                      </td>
+                      <td id="userChallengesCompleted">
+                        <span className="highlightInfo">
+                          {data.ChallengesCompleted}
+                        </span>{' '}
+                        completados
+                      </td>
+                      <td id="userExperience">
+                        <span className="highlightInfo">
+                          {data.TotalExperienceUser}
+                        </span>{' '}
+                        xp
+                      </td>
+                    </tr>
+                  )
+                })}
               </table>
             </div>
           </Content>
@@ -71,6 +95,27 @@ const Leaderboard: React.FC = () => {
       </AnimatePresence>
     </Container>
   )
+}
+
+export const getStaticProps = async () => {
+  const databaseRef = database.ref('users')
+
+  var arrayObjects: Array<DataOfDatabaseTypes> = new Array()
+
+  databaseRef.orderByValue().on('value', user => {
+    user.forEach(children => {
+      var childrenData = children.val()
+
+      arrayObjects.push(childrenData)
+    })
+  })
+
+  return {
+    props: {
+      arrayObjects
+    },
+    revalidate: 60
+  }
 }
 
 export default Leaderboard

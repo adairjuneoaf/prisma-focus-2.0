@@ -16,14 +16,16 @@ import { AuthenticationContext } from '../../contexts/AuthenticationContext'
 import { useRouter } from 'next/router'
 
 const Challenges: React.FC = () => {
-  const { UserConected } = useContext(AuthenticationContext)
-  const router = useRouter()
+  // const { UserConected } = useContext(AuthenticationContext)
+  // const router = useRouter()
 
-  useEffect(() => {
-    if (!UserConected) {
-      router.push('/')
-    }
-  }, [UserConected])
+  // const { username } = router.query
+
+  // useEffect(() => {
+  //   if (UserConected?.id !== String(username)) {
+  //     router.push('/')
+  //   }
+  // }, [UserConected])
 
   return (
     <Container>

@@ -41,6 +41,8 @@ const CountdownContextProvider: React.FC<CountdownContextProviderProps> = ({
 
   function handleActiveCountdown() {
     setActiveCountdown(true)
+
+    new Audio('/notification/pop-alert-button.mp3').play()
   }
 
   useEffect(() => {

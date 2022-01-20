@@ -12,15 +12,15 @@ type DataOfDatabaseTypes = {
 export function useGetLeaderboardData() {
   const databaseRef = database.ref('users')
 
-  var arrayChildren: Array<DataOfDatabaseTypes> = new Array()
+  var arrayObjects: Array<DataOfDatabaseTypes> = new Array()
 
   databaseRef.orderByChild('TotalExperienceUser').on('value', user => {
     user.forEach(children => {
       var childrenData = children.val()
 
-      arrayChildren.push(childrenData)
+      arrayObjects.push(childrenData)
     })
   })
 
-  return { arrayChildren }
+  return { arrayObjects }
 }

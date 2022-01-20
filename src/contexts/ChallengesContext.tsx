@@ -48,6 +48,10 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
 
   const [OpenOrCloseLevelUpModal, setOpenOrCloseLevelUpModal] = useState(false)
 
+  useEffect(() => {
+    Notification.requestPermission()
+  }, [])
+
   const CalcExperienceToNextLevel = Math.pow(
     (dataOfDatabase?.LevelUser + 1) * 5,
     2
@@ -59,6 +63,14 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
     )
     const ChallengeSelected = ChallengesJSON[RadomChallengeIndex]
     setChallengeSelectedForUser(ChallengeSelected)
+
+    if (Notification.permission === 'granted') {
+      new Audio('/notification/notification-happy-challenge.wav').play()
+
+      new Notification('Novo desafio disponível!', {
+        body: `Valendo ${ChallengeSelected.amount}xp!`
+      })
+    }
   }
 
   function CloseLevelUpModal() {
@@ -71,6 +83,8 @@ const ChallengesContextProvider: React.FC<ChallengesContextProvider> = ({
     await database.ref(`users/${UserConected?.id}`).update({
       LevelUser: dataOfDatabase.LevelUser + 1
     })
+
+    new Audio('/notification/mario_game_up.mp3').play()
   }
 
   async function ChallengesUpUser() {
