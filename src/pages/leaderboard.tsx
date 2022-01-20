@@ -113,13 +113,10 @@ export async function getStaticProps() {
     })
   })
 
-  console.log(arrayObjects)
-
   return {
     props: {
       arrayObjects
-    },
-    revalidate: 5
+    }
   }
 }
 
